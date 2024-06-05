@@ -1,0 +1,29 @@
+
+.add-product-container {
+  display: flex;
+  padding: 0%;
+ 
+}
+
+.sidebar {
+  width: 250px;
+  padding-left: 0%; 
+  padding: 0;
+  margin-left: -10px; /* Adjust margin to prevent overflow */
+  transform: translateX(-10px); /* Move sidebar 20px to the left */
+  box-sizing: border-box;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.add-product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

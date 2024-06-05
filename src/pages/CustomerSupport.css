@@ -1,0 +1,62 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
+  }
+  
+  .customer-support {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .support-info, .support-form, .faqs, .chat-widget {
+    margin-bottom: 30px;
+  }
+  
+  .support-info h2, .support-form h2, .faqs h2, .chat-widget h2 {
+    font-size: 28px;
+    color: #27214f;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .support-info p, .faq p {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+  }
+  
+  .support-form h2 {
+    margin-bottom: 20px;
+  }
+  
+  .faqs {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .faq {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .faq:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .faq h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  

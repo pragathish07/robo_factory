@@ -1,0 +1,165 @@
+.add-to-cart-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f8f8f8;
+  flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+}
+
+.product-box {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  flex: 1;
+  margin-right: 20px;
+  margin-bottom: 20px; /* Add margin to the bottom for spacing on smaller screens */
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+}
+
+.product-info img {
+  max-width: 100%; /* Ensure the image is responsive */
+  width: auto;
+  height: auto;
+  max-height: 200px; /* Set a maximum height */
+  margin-right: 20px;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.product-details h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.product-details p {
+  margin: 5px 0;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.star {
+  color: #ff9900;
+  margin-right: 2px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.quantity-control button {
+  width: 30px;
+  height: 30px;
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity-control span {
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.add-to-cart-container button {
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.buy-now-btn {
+  background-color: #00aaff;
+}
+
+.add-to-cart-container button:hover {
+  opacity: 0.9;
+}
+
+.bill {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  width: 100%; /* Make the bill take full width */
+  max-width: 300px; /* Ensure it doesn't exceed 300px */
+  flex-shrink: 0; /* Prevent the bill from shrinking */
+  margin-top: 20px; /* Add margin to the top for spacing */
+}
+
+.bill h3 {
+  margin-top: 0;
+}
+
+.bill-items {
+  margin: 20px 0;
+}
+
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+  .add-to-cart-container {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    padding: 10px;
+  }
+
+  .product-box {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 20px; /* Add bottom margin for spacing */
+  }
+
+  .product-info {
+    flex-direction: column; /* Stack product info vertically */
+    align-items: center; /* Center align items */
+  }
+
+  .product-info img {
+    max-width: 80%; /* Adjust the image size to 80% of its container */
+    max-height: 150px; /* Set a maximum height */
+    margin-bottom: 10px; /* Add margin to bottom */
+  }
+
+  .product-details {
+    text-align: center; /* Center align text */
+  }
+
+  .quantity-control {
+    justify-content: center; /* Center align quantity control */
+  }
+
+  .bill {
+    width: 100%; /* Make bill full width */
+    max-width: none; /* Remove max-width constraint */
+  }
+}

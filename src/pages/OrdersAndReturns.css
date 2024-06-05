@@ -1,0 +1,60 @@
+/* OrdersReturns.css */
+
+.orders-returns-container {
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+.orders-returns-container h2 {
+  margin-bottom: 20px;
+}
+
+.orders-list {
+  list-style: none;
+  padding: 0;
+}
+
+.order-item {
+  display: flex;
+  flex-direction: column; /* Change to column layout for smaller screens */
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-item img {
+  max-width: 100%;
+  margin-right: 0; /* Remove right margin for smaller screens */
+  margin-bottom: 10px;
+}
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-details h3 {
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 18px; /* Adjust font size for smaller screens */
+}
+
+.order-details p {
+  margin: 5px 0;
+  font-size: 14px; /* Adjust font size for smaller screens */
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .order-item {
+    flex-direction: row; /* Change to row layout for larger screens */
+  }
+  
+  .order-item img {
+    max-width: 100px; /* Limit image width for larger screens */
+    margin-right: 20px; /* Add right margin for larger screens */
+    margin-bottom: 0; /* Remove bottom margin for larger screens */
+  }
+}

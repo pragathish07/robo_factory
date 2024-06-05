@@ -1,0 +1,172 @@
+.add-product-container {
+  display: flex;
+}
+body{
+  font-family: 'Roboto', sans-serif;
+}
+/* Default styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}
+
+/* Responsive styles for larger screens */
+@media screen and (min-width: 1200px) {
+  .container {
+    padding: 40px;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  padding-left: 0%; /* Adjust width as needed */
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px; /* Add margin to the left */
+}
+
+/* Header */
+.add-product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-product-header h1 {
+  margin: 0;
+}
+
+/* Content Sections */
+.add-product-content {
+  display: flex;
+  gap: 20px; /* Add gap between sections */
+}
+
+/* Info and Upload Section */
+.info-and-upload {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.05); 
+}
+
+/* General Info Section */
+.general-info h3 {
+  margin-top: 0;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+/* Upload Img Section */
+.upload-img {
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+  background-color: rgba(0, 0, 0, 0.05); /* Add black tint */
+}
+
+.upload-img h3 {
+  margin-top: 0;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+.img-preview img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+}
+
+.img-thumbnails {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.img-thumbnails img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-img-btn {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Pricing and Category Section */
+.price-and-category {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+  background-color: rgba(0, 0, 0, 0.05); /* Add black tint */
+}
+
+.price-and-category h3 {
+  margin-top: 0;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+/* Input Fields */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: calc(100% - 20px); /* Adjust input width */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.save-draft-btn {
+  background-color: #6c757d;
+  margin-right: 10px;
+}
+
+.add-product-btn {
+  background-color: #28a745;
+}

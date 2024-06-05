@@ -1,0 +1,83 @@
+/* Sidebar.css */
+
+.sidebar {
+  width: 250px;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  height: 100vh; /* Set the height to 100% of the viewport height */
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.sidebar-logo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  color: white;
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  color: white;
+}
+
+.sidebar-menu li {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px; /* Adjust padding to center the content horizontally */
+  cursor: pointer;
+  color: white;
+}
+
+.sidebar-menu li span {
+  margin-left: 10px;
+  color: white;
+}
+
+.sidebar-upload {
+  margin-top: auto;
+  text-align: center;
+  color: #fff;
+}
+
+.sidebar-upload button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #e96c21;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto; /* Allow the height to adjust based on content */
+  }
+
+  .sidebar-logo {
+    margin-bottom: 20px;
+  }
+
+  .sidebar-menu li {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .sidebar-upload button {
+    padding: 8px 16px; /* Adjust button padding for smaller screens */
+  }
+}

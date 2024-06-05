@@ -1,0 +1,145 @@
+/* Contact.css */
+.container {
+    padding-top: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    background-color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card p, .card h3 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .card h3 {
+    font-size: 1.5rem;
+    color: #27214f;
+  }
+  
+  .card-body {
+    padding: 30px;
+  }
+  
+  #formName, #formEmail, #formPhone, #formMessage {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+  }
+  
+  #formName:focus, #formEmail:focus, #formPhone:focus, #formMessage:focus {
+    border-color: orange;
+    outline: none;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    background-color: orange;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #4abec5;
+    transform: translateY(-2px);
+  }
+  
+  iframe {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 100%;
+    height: 300px;
+    margin-bottom: 30px;
+  }
+  
+  @media (min-width: 768px) {
+    .card-deck {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .card-deck .card {
+      flex: 0 0 48%;
+    }
+  }
+  
+  /* Additional styles for better responsiveness and aesthetics */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .container h2 {
+    font-size: 2.5rem;
+    color: #27214f;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .contact-info {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .contact-info p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  form h3 {
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  .card-deck {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px; /* Add gap between cards */
+    flex-wrap: wrap;
+  }
+  
+  .card-deck .card {
+    flex: 1;
+    margin-bottom: 30px;
+    min-width: 48%; /* Ensure cards are responsive */
+  }
+  
+  @media (max-width: 768px) {
+    .card-deck .card {
+      flex: 1 1 100%;
+    }
+  }
+  

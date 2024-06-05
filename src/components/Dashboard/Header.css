@@ -1,0 +1,65 @@
+/* Header.css */
+
+/* Base styles for the header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e96c21;
+  padding: 10px 20px;
+  color: black;
+}
+
+/* Styles for the company logo */
+.company-logo {
+  width: 70px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+/* Styles for the dashboard name */
+.dashboard-name {
+  font-size: 1.5rem;
+}
+
+/* Styles for the search bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input[type="text"] {
+  padding: 8px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 200px; /* Adjust width as needed */
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .company-logo {
+    width: 50px;
+    height: 40px;
+    margin-right: 0;
+  }
+
+  .dashboard-name {
+    margin: 10px 0;
+    font-size: 1.2rem;
+  }
+
+  .search-bar {
+    margin-top: 10px;
+  }
+
+  .search-bar input[type="text"] {
+    width: 100%; /* Make input full width on smaller screens */
+    margin-right: 0;
+  }
+}

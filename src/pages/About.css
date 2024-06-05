@@ -1,0 +1,88 @@
+/* About.css */
+
+.about-us {
+  background-color: #f9f9f9;
+  
+  color: #333;
+  padding: 40px 20px;
+}
+
+.about-us-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.image-container {
+  flex: 1;
+  max-width: 300px;
+  margin: 20px;
+}
+
+.image-container img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.story-container {
+  flex: 2;
+  max-width: 600px;
+  margin: 20px;
+  text-align: left;
+}
+
+.story-container h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #232f3e;
+}
+
+.story-container p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.vision-mission {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.box {
+  flex: 1;
+  max-width: 300px;
+  background-color: #fff;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.box h3 {
+  font-size: 1.8em;
+  color: #232f3e;
+  margin-bottom: 15px;
+}
+
+.box p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .about-us-content, .vision-mission {
+    flex-direction: column;
+  }
+
+  .image-container, .story-container, .box {
+    max-width: 100%;
+  }
+
+  .story-container {
+    text-align: center;
+  }
+}

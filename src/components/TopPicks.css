@@ -1,0 +1,147 @@
+/* Top Picks Container */
+.top-picks {
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+/* Top Picks Title */
+.top-picks h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #27214f;
+  font-size: 24px;
+}
+
+/* Products Container */
+.products-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Navigation Buttons */
+.prev,
+.next {
+  display: none; /* Initially hide the previous and next buttons */
+}
+
+/* Products List */
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  width: calc(33.33% - 40px);
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Product Image */
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+/* Product Info */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-info h3 {
+  margin: 10px 0 5px;
+  font-size: 18px;
+  color: #27214f;
+  text-decoration: none;
+}
+
+.product-info .product-price {
+  font-size: 16px;
+  color: #863b87;
+  margin-bottom: 5px;
+  text-decoration: none;
+}
+
+/* Product Rating */
+.product-info .product-rating {
+  font-size: 14px;
+  color: #ff9900;
+  margin-bottom: 10px;
+}
+
+.star {
+  color: #ff9900;
+  margin: 0 2px;
+}
+
+/* Buttons Container */
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn,
+.buy-now-btn {
+  background-color: #27214f;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+/* Buy Now Button */
+.buy-now-btn {
+  background-color: #863b87;
+}
+
+/* Button Hover Effect */
+.add-to-cart-btn:hover,
+.buy-now-btn:hover {
+  opacity: 0.9;
+}
+
+/* Change button color on hover */
+.add-to-cart-btn:hover,
+.buy-now-btn:hover {
+  background-color: #232f3e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .prev,
+  .next {
+    display: none; /* Hide the previous and next buttons on medium screens */
+  }
+
+  .product-card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    width: calc(100% - 20px);
+  }
+}

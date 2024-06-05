@@ -1,0 +1,117 @@
+/* Battery.css */
+
+.battery {
+  padding: 20px;
+}
+
+.battery h2 {
+  font-size: 24px;
+  color: #27214f;
+  margin-bottom: 20px;
+}
+
+.options-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.sorting-options,
+.filter-options {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+label {
+  font-size: 16px;
+  color: #333;
+  margin-right: 10px;
+}
+
+select {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Styling for ProductCard component */
+.product-card {
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 220px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.product-details {
+  margin-top: 10px;
+}
+
+.product-name {
+  font-size: 18px;
+  color: #333;
+}
+
+.product-price {
+  font-size: 16px;
+  color: #666;
+}
+
+.product-rating {
+  font-size: 16px;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  color: #ff9900;
+  margin-right: 2px;
+}
+
+
+/* Battery.css */
+
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+  .options-container {
+    flex-direction: column; /* Stack options vertically on smaller screens */
+    margin-bottom: 10px; /* Reduce margin for smaller screens */
+  }
+
+  .sorting-options,
+  .filter-options {
+    margin-right: 0; /* Remove right margin for options */
+    margin-bottom: 10px; /* Add bottom margin between options */
+  }
+
+  label {
+    margin-right: 0; /* Remove right margin for labels */
+    margin-bottom: 5px; /* Add bottom margin for labels */
+  }
+
+  select {
+    width: 100%; /* Make select input full width */
+  }
+
+  .product-card {
+    width: calc(50% - 10px); /* Arrange product cards in a grid layout */
+    margin-bottom: 20px; /* Add bottom margin between product cards */
+  }
+}

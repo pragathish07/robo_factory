@@ -1,0 +1,98 @@
+/* Container for the shop section */
+.shop {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+/* Title of the shop section */
+.shop h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #27214f;
+  font-size: 24px;
+}
+
+/* Container for the categories */
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Style for each category card */
+.category-card {
+  width: 200px;
+  height: 250px;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+.category-card:nth-child(odd) {
+  animation-name: slideInFromRight;
+}
+
+.category-card:nth-child(even) {
+  animation-name: slideInFromLeft;
+}
+
+.category-card:hover {
+  transform: scale(1.05) translateY(-10px);
+  opacity: 1;
+}
+
+/* Content of the card */
+.card-content {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Overlay effect */
+.overlay {
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
