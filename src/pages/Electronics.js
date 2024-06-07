@@ -1,54 +1,56 @@
-// Electronics.js
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from '../pages/ProductCard';
 import './Electronics.css';
+import axios from 'axios';
+import Loader from "react-js-loader";
 
-const electronicsProducts = [
-  { 
-    name: 'Smartphone', 
-    price: 499, 
-    image: 'https://via.placeholder.com/150', 
-    rating: 4.5, 
-    category: 'smartphones' 
-  },
-  { 
-    name: 'Laptop', 
-    price: 899, 
-    image: 'https://via.placeholder.com/150', 
-    rating: 4, 
-    category: 'laptops' 
-  },
-  // Add more products as needed
-];
 
 const Electronics = () => {
+  const [products, setProducts] = useState([]);
   const [sortingOption, setSortingOption] = useState('default');
-  const [filteringOption, setFilteringOption] = useState('all');
+  const [filteringOption, setFilteringOption] = useState('electronics');
+  const [loading ,setLoading] = useState(true);
 
-  // Sorting logic
-  const sortedProducts = [...electronicsProducts].sort((a, b) => {
-    switch (sortingOption) {
-      case 'price-low-high':
-        return a.price - b.price;
-      case 'price-high-low':
-        return b.price - a.price;
-      case 'rating-high-low':
-        return b.rating - a.rating;
-      default:
-        return 0;
-    }
-  });
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-  // Filtering logic
-  const filteredProducts = sortedProducts.filter(product => {
+  const fetchProducts = () => {
+    axios
+      .get(`http://localhost:5000/api/products/${filteringOption}`)
+      .then((response) => {
+        setProducts(response.data.products);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching products:', error);
+        setLoading(false);
+      });
+  };
+
+  const sortedProducts = (products) => {
+    return [...products].sort((a, b) => {
+      switch (sortingOption) {
+        case 'price-low-high':
+          return (a.basePrice || 0) - (b.basePrice || 0);
+        case 'price-high-low':
+          return (b.basePrice || 0) - (a.basePrice || 0);
+        case 'rating-high-low':
+          return (b.rating || 0) - (a.rating || 0);
+        default:
+          return 0;
+      }
+    });
+  };
+
+  const filteredAndSortedProducts = sortedProducts(products).filter((product) => {
     if (filteringOption === 'all') {
       return true;
     } else {
       return product.category === filteringOption;
     }
   });
-
+  
   return (
     <div className="electronics">
       <h2>ELECTRONICS</h2>
@@ -64,19 +66,18 @@ const Electronics = () => {
         </div>
         <div className="filter-options">
           <label htmlFor="filterSelect">Filter By:</label>
-          <select id="filterSelect" onChange={(e) => setFilteringOption(e.target.value)}>
-            <option value="all">All</option>
-            <option value="smartphones">Smartphones</option>
-            <option value="laptops">Laptops</option>
-            {/* Add more filtering options as needed */}
+          <select id="filterSelect" value={filteringOption} onChange={(e) => setFilteringOption(e.target.value)}>
+            <option value="electronics">Electronics</option>
+            {/* Add more categories as needed */}
           </select>
         </div>
       </div>
-      <div className="product-list">
-        {filteredProducts.map((product, index) => (
+      {loading? <Loader type="box-rectangular" bgColor={"grey"} color={"grey"} title={"Please wait"} size={100} />
+      : <div className="product-list">
+        {filteredAndSortedProducts.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
-      </div>
+      </div>}
     </div>
   );
 };

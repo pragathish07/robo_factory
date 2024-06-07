@@ -243,3 +243,12 @@
     margin-bottom: 5px;
   }
 }
+
+
+.btn{
+  background-color: transparent;
+  color: #ffffff;
+  font-family: inherit;
+  padding: 10px;
+  margin: 10px;
+}

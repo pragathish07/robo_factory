@@ -1,10 +1,10 @@
 import React from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
-import { AuthProvider } from './pages/AuthContext';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AddToCart from './pages/AddToCart';
@@ -28,6 +28,9 @@ import AddProduct from './components/Products/AddProduct';
 import ProductList from './components/Products/ProductList';
 import Orders from './components/Orders/Orders';
 import EditProduct from './components/Products/EditProduct'; 
+import { AuthProvider } from "./context/AuthContext"
+import ProtectedRoute from './ProtectedRoutes';
+import AdminRoute from './AdminRoute';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -47,53 +50,194 @@ const App = () => {
     setProducts(products.filter((_, idx) => idx !== index));
   };
   return (
+   
+
+
     <AuthProvider>
-      <Router>
-        <div id="root">
-          <Navbar />
-          <div className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/cart" element={<AddToCart />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="pages/orders" element={<OrdersAndReturns />} />
-              <Route path="/customerdashboard" element={<CustomerDashboard />} />
-              <Route path="/customer-support" element={<CustomerSupport />} />
-              
-              <Route path="/shop/electronics" element={<Electronics />} />
-              <Route path="/shop/radios" element={<Radios />} />
-              <Route path="/shop/motor-and-gearboxes" element={<MotorsAndGearboxes />} />
-              <Route path="/shop/battery" element={<Battery />} />
-              <Route path="/shop/charger-accessories" element={<ChargerAndAccessories />} />
-              <Route path="/shop/robokits" element={<RoboKits />} />
-              <Route path="/shop/tools" element={<Tools />} />
-              <Route path="/shop/merchandise" element={<Merchandise />} />
-              <Route path="/shop/wires-cables-connections" element={<WiresCablesConnections />} />
-              <Route path="/shop/mechanical" element={<Mechanical />} />
+    <Router>
+      <div id="root">
+        <Navbar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/customer-support" element={<CustomerSupport />} />
 
-              <Route path="/" element={<Dashboard products={products} />} />
-          <Route path="/add-product" element={<AddProduct onSubmit={handleAddProduct} />} />
-          <Route
-            path="/product-list"
-            element={<ProductList products={products} onDelete={handleDeleteProduct} />}
-          />
-          <Route path="/orders" element={<Orders />} />
-          <Route
-            path="/edit-product/:index"
-            element={<EditProduct products={products} onUpdate={handleUpdateProduct} />}
-          />
+            <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute roles={['admin']}>
+                  <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/shop/electronics" 
+              element={
+                <ProtectedRoute>
+                  <Electronics />
+                </ProtectedRoute>
+              } 
+            />
 
-              {/* Add more routes */}
-            </Routes>
-          </div>
-          <Footer />
+            <Route 
+              path="/shop/radios" 
+              element={
+                <ProtectedRoute>
+                  <Radios />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/shop/motor-and-gearboxes" 
+              element={
+                <ProtectedRoute>
+                  <MotorsAndGearboxes />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/shop/battery" 
+              element={
+                <ProtectedRoute>
+                  <Battery />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/shop/charger-accessories" 
+              element={
+                <ProtectedRoute>
+                  <ChargerAndAccessories />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/shop/robokits" 
+              element={
+                <ProtectedRoute>
+                  <RoboKits />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/shop/tools" 
+              element={
+                <ProtectedRoute>
+                  <Tools />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/shop/merchandise" 
+              element={
+                <ProtectedRoute>
+                  <Merchandise />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/shop/wires-cables-connections" 
+              element={
+                <ProtectedRoute>
+                  <WiresCablesConnections />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/shop/mechanical" 
+              element={
+                <ProtectedRoute>
+                  <Mechanical />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/add-product" 
+              element={
+                <ProtectedRoute>
+                  <AddProduct onSubmit={handleAddProduct} />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/product-list" 
+              element={
+                <ProtectedRoute>
+                  <ProductList products={products} onDelete={handleDeleteProduct} />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/orders" 
+              element={
+                <ProtectedRoute>
+                  <Orders />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/edit-product/:index" 
+              element={
+                <ProtectedRoute>
+                  <EditProduct products={products} onUpdate={handleUpdateProduct} />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route path="/cart" 
+                  element={
+                    <ProtectedRoute>
+                      <AddToCart />
+                    </ProtectedRoute>
+              } />
+
+            <Route path="/wishlist" 
+                   element={
+                    <ProtectedRoute>
+                      <Wishlist />
+                    </ProtectedRoute>
+              } />
+            <Route path="pages/orders"
+                   element={
+                    <ProtectedRoute>
+                      <OrdersAndReturns />
+                    </ProtectedRoute>
+                   
+                   } />
+            <Route path="/customerdashboard"
+                   element={
+                    <ProtectedRoute>
+                      <CustomerDashboard />
+                    </ProtectedRoute>
+                  
+                   } />
+            
+
+            {/* Add more routes */}
+          </Routes>
         </div>
-      </Router>
-    </AuthProvider>
+        <Footer />
+      </div>
+    </Router>
+  </AuthProvider>
+    
   );
 };
 

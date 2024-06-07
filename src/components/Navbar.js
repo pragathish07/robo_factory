@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaMapMarkerAlt, FaHeart, FaUser, FaCaretDown } from 'react-icons/fa';
-import { useAuth } from '../pages/AuthContext'; // Import useAuth hook
+ // Import useAuth hook
 import './Navbar.css';
 import logo from './Robo Factory.png';
 import { RxCaretDown } from "react-icons/rx";
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
-  const { user } = useAuth(); // Get user information from AuthContext
+  const { isAuthenticated, logout ,userRole} = useAuth();
+   // Get user information from AuthContext
 
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
   const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false);
@@ -64,11 +66,7 @@ const Navbar = () => {
           <input type="text" placeholder="Search" style={{ backgroundColor: '#FFFFFF', color: '#232f3e' }} />
         </div>
         <div className="navbar-right">
-          {user && ( // Check if user is logged in
-            <div className="navbar-user">
-              <span style={{ color: '#FFFFFF' }}>Hello, {user.displayName}</span> {/* Display user's display name */}
-            </div>
-          )}
+          
           
           <div className="navbar-categories-dropdown" onClick={toggleCategoriesDropdown}>
             <span style={{ color: '#FFFFFF' }}>Categories</span>
@@ -91,9 +89,16 @@ const Navbar = () => {
             <FaShoppingCart style={{ color: '#FFFFFF' }} />
             <span>Cart</span>
           </Link>
-          {!user && ( // Display login link if user is not logged in
-            <Link to="/login" className="navbar-link" style={{ color: '#FFFFFF' }}>Login</Link>
-          )}
+
+          {isAuthenticated ? (<button className="btn" onClick={logout}>Logout</button>) : (<Link className='navbar-link' to="/login">Login</Link>)}
+          {userRole === 'admin' && (
+              <>
+                <li><Link to="/dashboard">Dashboard</Link></li>
+
+              </>
+            )}
+
+          
         </div>
       </nav>
     </>

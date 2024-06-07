@@ -1,47 +1,49 @@
-// Radios.js
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ProductCard from '../pages/ProductCard';
-import './Radios.css';
+import './Mechanical.css';
+import Loader from "react-js-loader";
 
-const radiosProducts = [
-  { 
-    name: 'Vintage Radio', 
-    price: 99, 
-    image: 'https://via.placeholder.com/150', 
-    rating: 4,
-    category: 'vintage'
-  },
-  { 
-    name: 'Portable Radio', 
-    price: 49, 
-    image: 'https://via.placeholder.com/150', 
-    rating: 3.5,
-    category: 'portable'
-  },
-  // Add more products as needed
-];
-
-const Radios = () => {
+const Radio = () => {
+  const [products, setProducts] = useState([]);
   const [sortingOption, setSortingOption] = useState('default');
-  const [filteringOption, setFilteringOption] = useState('all');
+  const [filteringOption, setFilteringOption] = useState('radio');
+  const [loading ,setLoading] = useState(true);
 
-  // Sorting logic
-  const sortedProducts = [...radiosProducts].sort((a, b) => {
-    switch (sortingOption) {
-      case 'price-low-high':
-        return a.price - b.price;
-      case 'price-high-low':
-        return b.price - a.price;
-      case 'rating-high-low':
-        return b.rating - a.rating;
-      default:
-        return 0;
-    }
-  });
+  useEffect(() => {
+    fetchProducts();
+  }, [filteringOption]);
 
-  // Filtering logic
-  const filteredProducts = sortedProducts.filter(product => {
+  const fetchProducts = () => {
+    axios
+      .get(`http://localhost:5000/api/products/${filteringOption}`)
+      .then((response) => {
+        setProducts(response.data.products);
+        setLoading(false);
+
+      })
+      .catch((error) => {
+        console.error('Error fetching products:', error);
+        setLoading(false);
+      });
+  };
+
+  const sortProducts = (products) => {
+    return [...products].sort((a, b) => {
+      switch (sortingOption) {
+        case 'price-low-high':
+          return (a.basePrice || 0) - (b.basePrice || 0);
+        case 'price-high-low':
+          return (b.basePrice || 0) - (a.basePrice || 0);
+        case 'rating-high-low':
+          return (b.rating || 0) - (a.rating || 0);
+        default:
+          return 0;
+      }
+    });
+  };
+
+  const filteredAndSortedProducts = sortProducts(products).filter((product) => {
     if (filteringOption === 'all') {
       return true;
     } else {
@@ -50,35 +52,42 @@ const Radios = () => {
   });
 
   return (
-    <div className="radios">
-      <h2>RADIOS</h2>
+    <div className="Radio">
+      <h2>Radio</h2>
       <div className="options-container">
         <div className="sorting-options">
           <label htmlFor="sortSelect">Sort By:</label>
-          <select id="sortSelect" onChange={(e) => setSortingOption(e.target.value)}>
+          <select
+            id="sortSelect"
+            onChange={(e) => setSortingOption(e.target.value)}
+          >
             <option value="default">Default</option>
             <option value="price-low-high">Price: Low to High</option>
             <option value="price-high-low">Price: High to Low</option>
             <option value="rating-high-low">Rating: High to Low</option>
+            <option value="rating-high-low">Rating: low to High</option>
           </select>
         </div>
         <div className="filter-options">
           <label htmlFor="filterSelect">Filter By:</label>
-          <select id="filterSelect" onChange={(e) => setFilteringOption(e.target.value)}>
+          <select
+            id="filterSelect"
+            onChange={(e) => setFilteringOption(e.target.value)}
+          >
             <option value="all">All</option>
-            <option value="vintage">Vintage</option>
-            <option value="portable">Portable</option>
+            <option value="Radio">Radio</option>
             {/* Add more filtering options as needed */}
           </select>
         </div>
       </div>
-      <div className="product-list">
-        {filteredProducts.map((product, index) => (
+      {loading? <Loader type="box-rectangular" bgColor={"grey"} color={"grey"} title={"Please wait"} size={100} />
+      : <div className="product-list">
+        {filteredAndSortedProducts.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
-      </div>
+      </div>}
     </div>
   );
 };
 
-export default Radios;
+export default Radio;

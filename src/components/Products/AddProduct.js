@@ -3,18 +3,19 @@ import './AddProduct.css';
 import { FaSave, FaPlus } from 'react-icons/fa'; // Ensure both icons are imported
 import Sidebar from '../Dashboard/Sidebar';
 import Header from '../Dashboard/Header';
+import axios from 'axios';
 
 const AddProduct = ({ onSubmit }) => {
   const [product, setProduct] = useState({
     name: '',
     description: '',
-    features: '', // New field
+    features: '',
     basePrice: '',
     stock: '',
     discount: '',
     discountType: '',
     category: '',
-    subCategory: '', // New field
+    subCategory: '',
     images: []
   });
 
@@ -23,35 +24,53 @@ const AddProduct = ({ onSubmit }) => {
     setProduct({ ...product, [name]: value });
   };
 
-  const handleAddImage = (e) => {
-    const files = e.target.files;
-    const newImages = [];
-    for (let i = 0; i < files.length; i++) {
-      newImages.push(files[i]);
-    }
-    setProduct({ ...product, images: [...product.images, ...newImages] });
-  };
-
   const handleSaveDraft = () => {
     // Logic to save draft
   };
 
-  const handleAddProduct = () => {
-    onSubmit(product); // This line should trigger the update in the products list
-    setProduct({
-      name: '',
-      description: '',
-      features: '',
-      basePrice: '',
-      stock: '',
-      discount: '',
-      discountType: '',
-      category: '',
-      subCategory: '',
-      images: []
-    });
+  const handleAddImage = (e) => {
+    const files = Array.from(e.target.files);
+    setProduct({ ...product, images: [...product.images, ...files] });
   };
 
+  const handleAddProduct = async () => {
+    try {
+      // First upload images
+      const formData = new FormData();
+      product.images.forEach((image) => {
+        formData.append('images', image);
+      });
+
+      const uploadResponse = await axios.post('http://localhost:5000/api/upload', formData);
+
+      if (uploadResponse.data.success) {
+        const imagePaths = uploadResponse.data.filePaths;
+
+        // Then create the product with image paths
+        const newProduct = { ...product, images: imagePaths };
+        const productResponse = await axios.post('http://localhost:5000/api/products', newProduct);
+
+        if (productResponse.data.success) {
+          console.log('Product added successfully:', productResponse.data.product);
+          onSubmit(productResponse.data.product);
+          setProduct({
+            name: '',
+            description: '',
+            features: '',
+            basePrice: '',
+            stock: '',
+            discount: '',
+            discountType: '',
+            category: '',
+            subCategory: '',
+            images: []
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  };
 
   return (
     <div>
@@ -114,7 +133,6 @@ const AddProduct = ({ onSubmit }) => {
                   ))}
                   <input
                     type="file"
-                    multiple
                     accept="image/*"
                     onChange={handleAddImage}
                     style={{ display: 'none' }}

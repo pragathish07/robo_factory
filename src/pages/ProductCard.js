@@ -1,37 +1,19 @@
-// ProductCard.js
-
 import React from 'react';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 import './ProductCard.css';
 
-const renderStars = (rating) => {
-  const fullStars = Math.floor(rating);
-  const halfStar = rating % 1 !== 0;
-  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
-  return (
-    <>
-      {[...Array(fullStars)].map((_, index) => (
-        <FaStar key={`full-${index}`} className="star" />
-      ))}
-      {halfStar && <FaStarHalfAlt className="star" />}
-      {[...Array(emptyStars)].map((_, index) => (
-        <FaRegStar key={`empty-${index}`} className="star" />
-      ))}
-    </>
-  );
-};
-
 const ProductCard = ({ product }) => {
-  const { name, price, image, rating } = product;
-
+  // Assuming product.image is the relative path of the image stored in the server
+  
+  const baseUrl = 'http://localhost:5000/';
   return (
     <div className="product-card">
-      <img src={image} alt={name} />
+      <img src={product.images && product.images.length > 0
+    ? `${baseUrl}${product.images[0].replace('\\', '/')}`
+    : 'https://via.placeholder.com/150'} alt={product.name} />
       <div className="product-info">
-        <h3>{name}</h3>
-        <p className="price">{price}</p>
-        <div className="rating">{renderStars(rating)}</div>
+        <h3>{product.name}</h3>
+        <p className="price">{product.basePrice}</p>
         <div className="buttons">
           <button className="add-to-cart-btn">Add to Cart</button>
           <button className="buy-now-btn">Buy Now</button>
