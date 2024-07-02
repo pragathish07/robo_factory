@@ -1,0 +1,49 @@
+.categories-page-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 20%;
+    min-width: 250px;
+  }
+  
+  .categories-page-content {
+    width: 80%;
+    padding: 20px;
+  }
+  
+  .categories-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .category-card {
+    background-color: #f8c271;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .category-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .category-name {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+  }

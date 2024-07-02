@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddProduct.css';
-import { FaSave, FaPlus } from 'react-icons/fa'; // Ensure both icons are imported
+import { FaSave, FaPlus, FaTrash } from 'react-icons/fa';
 import Sidebar from '../Dashboard/Sidebar';
-import Header from '../Dashboard/Header';
 import axios from 'axios';
 
 const AddProduct = ({ onSubmit }) => {
@@ -19,6 +18,22 @@ const AddProduct = ({ onSubmit }) => {
     images: []
   });
 
+  const [categories, setCategories] = useState([]);
+  const [newCategory, setNewCategory] = useState('');
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/categories');
+        setCategories(response.data.categories);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -33,6 +48,11 @@ const AddProduct = ({ onSubmit }) => {
     setProduct({ ...product, images: [...product.images, ...files] });
   };
 
+  const handleDeleteImage = (index) => {
+    const updatedImages = product.images.filter((_, imgIndex) => imgIndex !== index);
+    setProduct({ ...product, images: updatedImages });
+  };
+
   const handleAddProduct = async () => {
     try {
       // First upload images
@@ -41,7 +61,11 @@ const AddProduct = ({ onSubmit }) => {
         formData.append('images', image);
       });
 
-      const uploadResponse = await axios.post('http://localhost:5000/api/upload', formData);
+      const uploadResponse = await axios.post('http://localhost:5000/api/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
 
       if (uploadResponse.data.success) {
         const imagePaths = uploadResponse.data.filePaths;
@@ -52,7 +76,7 @@ const AddProduct = ({ onSubmit }) => {
 
         if (productResponse.data.success) {
           console.log('Product added successfully:', productResponse.data.product);
-          onSubmit(productResponse.data.product);
+
           setProduct({
             name: '',
             description: '',
@@ -65,6 +89,11 @@ const AddProduct = ({ onSubmit }) => {
             subCategory: '',
             images: []
           });
+
+          // Add the new category to the list if it doesn't already exist
+          if (!categories.includes(product.category)) {
+            setCategories([...categories, product.category]);
+          }
         }
       }
     } catch (error) {
@@ -74,7 +103,6 @@ const AddProduct = ({ onSubmit }) => {
 
   return (
     <div>
-      <Header />
       <div className="add-product-container">
         <Sidebar />
         <div className="main-content">
@@ -94,7 +122,6 @@ const AddProduct = ({ onSubmit }) => {
                     name="name"
                     value={product.name}
                     onChange={handleInputChange}
-                    placeholder="Robotic Arm Assembly Kit"
                   />
                 </label>
                 <label>
@@ -103,7 +130,6 @@ const AddProduct = ({ onSubmit }) => {
                     name="description"
                     value={product.description}
                     onChange={handleInputChange}
-                    placeholder="A DIY robotic arm assembly kit for educational purposes. Includes all necessary components and instructions for assembly."
                   />
                 </label>
                 <label>
@@ -112,7 +138,6 @@ const AddProduct = ({ onSubmit }) => {
                     name="features"
                     value={product.features}
                     onChange={handleInputChange}
-                    placeholder="List the key features of the product"
                   />
                 </label>
               </section>
@@ -121,7 +146,12 @@ const AddProduct = ({ onSubmit }) => {
                 <div className="img-preview">
                   {product.images.length > 0 ? (
                     product.images.map((img, index) => (
-                      <img key={index} src={URL.createObjectURL(img)} alt={`Product ${index + 1}`} />
+                      <div key={index} className="img-container">
+                        <img src={URL.createObjectURL(img)} alt={`Product ${index + 1}`} />
+                        <button className="delete-img-btn" onClick={() => handleDeleteImage(index)}>
+                          <FaTrash />
+                        </button>
+                      </div>
                     ))
                   ) : (
                     <img src="https://via.placeholder.com/150" alt="Product" />
@@ -154,7 +184,6 @@ const AddProduct = ({ onSubmit }) => {
                     name="basePrice"
                     value={product.basePrice}
                     onChange={handleInputChange}
-                    placeholder="Rs.100"
                   />
                 </label>
                 <label>
@@ -164,7 +193,6 @@ const AddProduct = ({ onSubmit }) => {
                     name="stock"
                     value={product.stock}
                     onChange={handleInputChange}
-                    placeholder="100"
                   />
                 </label>
                 <label>
@@ -174,7 +202,6 @@ const AddProduct = ({ onSubmit }) => {
                     name="discount"
                     value={product.discount}
                     onChange={handleInputChange}
-                    placeholder="10%"
                   />
                 </label>
                 <label>
@@ -198,8 +225,13 @@ const AddProduct = ({ onSubmit }) => {
                     name="category"
                     value={product.category}
                     onChange={handleInputChange}
-                    placeholder="Robotics"
+                    list="categories"
                   />
+                  <datalist id="categories">
+                    {categories.map((category, index) => (
+                      <option key={index} value={category} />
+                    ))}
+                  </datalist>
                 </label>
                 <label>
                   Sub Category
@@ -208,7 +240,6 @@ const AddProduct = ({ onSubmit }) => {
                     name="subCategory"
                     value={product.subCategory}
                     onChange={handleInputChange}
-                    placeholder="Educational Kits"
                   />
                 </label>
               </section>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useLocation } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 import './Login.css'; // Import your CSS for styling
 
 /* const login = async (email, password) => {
@@ -34,6 +35,7 @@ const Login = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -72,6 +74,10 @@ const Login = () => {
       </form>
       <div className="login-link">
         Don't have an account? <Link to="/signup">Sign up</Link>
+        <br />
+        {user && user.role === 'superadmin' && (
+        <Link to='/admin/add-admin'>Add Admin</Link>
+      )}
       </div>
     </div>
   );

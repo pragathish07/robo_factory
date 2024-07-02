@@ -1,147 +1,189 @@
-/* Top Picks Container */
 .top-picks {
-  padding: 20px;
-  background-color: #f8f8f8;
-}
-
-/* Top Picks Title */
-.top-picks h2 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #27214f;
-  font-size: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 10px 0 100px 0;
 }
 
-/* Products Container */
+.section-title {
+  margin-bottom: 20px;
+}
+
 .products-container {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  height: 510px;
 }
 
-/* Navigation Buttons */
-.prev,
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.nav-button:hover {
+  color: coral;
+  background: none;
+}
+
+.prev {
+  left: 10px;
+}
+
 .next {
-  display: none; /* Initially hide the previous and next buttons */
+  right: 10px;
 }
 
-/* Products List */
 .products {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  height: 500px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin: 0;
   gap: 20px;
+  max-width: 100%; /* Ensure the container doesn't exceed screen width */
 }
 
 .product-card {
-  background: white;
-  border: 1px solid #ccc;
+  flex: 0 0 auto;
+  width: 200px;
+  
+  text-align: left;
+  background: #f8f8f8;
   border-radius: 8px;
-  padding: 10px;
-  width: calc(33.33% - 40px);
-  max-width: 300px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.product-card:hover {
-  transform: translateY(-5px);
+.product-card.active {
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Product Image */
-.product-card img {
-  max-width: 100%;
-  height: auto;
+.product-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-image {
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
   margin-bottom: 10px;
-  border-radius: 8px;
 }
 
-/* Product Info */
-.product-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.product-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
-.product-info h3 {
-  margin: 10px 0 5px;
-  font-size: 18px;
-  color: #27214f;
-  text-decoration: none;
+.product-details {
+  padding: 10px 0;
 }
 
-.product-info .product-price {
-  font-size: 16px;
-  color: #863b87;
+.product-name {
+  font-size: 1rem;
   margin-bottom: 5px;
-  text-decoration: none;
 }
 
-/* Product Rating */
-.product-info .product-rating {
-  font-size: 14px;
-  color: #ff9900;
+.product-price {
+  font-size: 1.1rem;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.rating-stars {
+  display: flex;
+  color: #f8ca4d;
   margin-bottom: 10px;
 }
 
 .star {
-  color: #ff9900;
-  margin: 0 2px;
+  font-size: 1rem;
 }
 
-/* Buttons Container */
-.buttons {
+.product-actions {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 10px;
 }
 
-/* Add to Cart Button */
-.add-to-cart-btn,
-.buy-now-btn {
-  background-color: #27214f;
+.add-to-cart-btn, .buy-now-btn {
+  background-color: orange !important;
+  color: #fff;
   border: none;
-  padding: 8px 12px;
-  color: white;
+  padding: 6px 14px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-/* Buy Now Button */
-.buy-now-btn {
-  background-color: #863b87;
+.add-to-cart-btn:hover, .buy-now-btn:hover {
+  background-color: coral;
 }
 
-/* Button Hover Effect */
-.add-to-cart-btn:hover,
-.buy-now-btn:hover {
-  opacity: 0.9;
-}
-
-/* Change button color on hover */
-.add-to-cart-btn:hover,
-.buy-now-btn:hover {
-  background-color: #232f3e;
-}
-
-/* Responsive adjustments */
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .prev,
-  .next {
-    display: none; /* Hide the previous and next buttons on medium screens */
+  .products-container {
+    flex-direction: column;
+  }
+
+  .products {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-button {
+    font-size: 1.5rem;
   }
 
   .product-card {
-    width: calc(50% - 20px);
+    width: 80%; /* Adjust card width for tablets */
+    margin-bottom: 20px;
+  }
+
+  .product-actions {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
 @media (max-width: 480px) {
+  .top-picks {
+    padding: 20px;
+  }
+
+  .nav-button {
+    font-size: 1.2rem;
+  }
+
   .product-card {
-    width: calc(100% - 20px);
+    width: 100%; /* Adjust card width for mobile devices */
+  }
+
+  .product-image {
+    height: 150px;
+  }
+
+  .product-name, .product-price {
+    font-size: 0.9rem;
+  }
+
+  .star {
+    font-size: 1rem;
+  }
+
+  .add-to-cart-btn, .buy-now-btn {
+    padding: 5px 10px;
+    font-size: 0.9rem;
   }
 }

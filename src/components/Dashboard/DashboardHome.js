@@ -1,38 +1,136 @@
-// DashboardHome.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import axios from 'axios';
 import './DashboardHome.css';
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 const DashboardHome = () => {
+  const [revenueData, setRevenueData] = useState(null);
+  const [customerData, setCustomerData] = useState(null);
+  const [dashboardStats, setDashboardStats] = useState({});
+  const [recentSold, setRecentSold] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const statsResponse = await axios.get('http://localhost:5000/api/dashboard-stats');
+        setDashboardStats(statsResponse.data);
+
+        const response = await axios.get('http://localhost:5000/api/monthly-stats');
+        const { revenueStats, customerStats } = response.data;
+
+        const revenueLabels = revenueStats.map(stat => `${stat._id.day}/${stat._id.month}/${stat._id.year}`);
+        const revenueValues = revenueStats.map(stat => stat.totalRevenue);
+
+        const customerLabels = customerStats.map(stat => `${stat._id.month}/${stat._id.year}`);
+        const customerValues = customerStats.map(stat => stat.newCustomers);
+
+        setRevenueData({
+          labels: revenueLabels,
+          datasets: [
+            {
+              label: 'Revenue',
+              data: revenueValues,
+              fill: false,
+              backgroundColor: 'rgb(75, 192, 192)',
+              borderColor: 'rgba(75, 192, 192, 0.2)',
+            },
+          ],
+        });
+
+        setCustomerData({
+          labels: customerStats.map(stat => `${stat._id.day}/${stat._id.month}/${stat._id.year}`),
+          datasets: [
+            {
+              label: 'New Customers',
+              data: customerStats.map(stat => stat.newCustomers),
+              fill: false,
+              backgroundColor: 'rgb(153, 102, 255)',
+              borderColor: 'rgba(153, 102, 255, 0.2)',
+            },
+          ],
+        });
+      } catch (error) {
+        setError('Error fetching monthly statistics.');
+      }
+    };
+
+    const fetchRecentSold = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/recent-sold');
+        setRecentSold(response.data);
+      } catch (error) {
+        setError('Error fetching recent sold data.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+    fetchRecentSold();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div className="dashboard-home">
-      <div className="overview">
+      <div className="details-box">
         <div className="current-balance">
           <h3>Total Earnings</h3>
-          <p>Rs.1,00,000</p>
+          <p style={{ color: 'black', fontSize: '20px',fontFamily:'Segoe UI' }}>Rs.{dashboardStats?.totalEarnings || 0}</p>
         </div>
-        <div className="statistics">
-          <div className="stat">
-            <h4>130</h4>
-            <p>Total orders</p>
-          </div>
-          <div className="stat">
-            <h4>15 pcs</h4>
-            <p>New orders</p>
-          </div>
+        <div className="stat">
+          <p style={{ color: 'black', fontSize: '20px' ,fontFamily:'Segoe UI'}}>Total orders</p>
+          <h4>{dashboardStats?.totalOrders || 0}</h4>
+          
         </div>
+        <div className="stat">
+        <p style={{ color: 'black', fontSize: '20px',fontFamily:'Segoe UI' }}>New orders</p>
+          <h4>{dashboardStats?.newOrders || 0} pcs</h4>
+          
+        </div>
+        <div className="card">
+        <p style={{ color: 'black', fontSize: '20px',fontFamily:'Segoe UI' }}>All Products</p>
+          <h3>{dashboardStats?.allProducts || 0}</h3>
+          
+        </div>
+        <div className="card">
+        <p style={{ color: 'black', fontSize: '20px',fontFamily:'Segoe UI'}}>Total customers</p>
+          <h3>{dashboardStats?.totalCustomers || 0}</h3>
+          
+        </div>
+
       </div>
-      <div className="info-cards">
-        <div className="card">
-          <h3>165</h3>
-          <p>All Products</p>
+      <div className="charts">
+        <div className="chart">
+          <h3>Revenue Over Time</h3>
+          {revenueData ? <Line data={revenueData} /> : <p>No data available</p>}
         </div>
-        <div className="card">
-          <h3>15</h3>
-          <p>Total customers</p>
-        </div>
-        <div className="card">
-          <h3>160</h3>
-          <p>Visitor Count</p>
+        <div className="chart">
+          <h3>Number of Customers Over Time</h3>
+          {customerData ? <Line data={customerData} /> : <p>No data available</p>}
         </div>
       </div>
       <div className="recent-sold">
@@ -49,43 +147,24 @@ const DashboardHome = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Robo Parts</td>
-              <td>BOT</td>
-              <td>900 </td>
-              <td>15/05/2024</td>
-              <td>Nur Alam</td>
-              <td>Processing</td>
-            </tr>
-            <tr>
-              <td>Battery</td>
-              <td>BOT</td>
-              <td>16,600</td>
-              <td>21/05/2024</td>
-              <td>S A Sams</td>
-              <td>Shipped</td>
-            </tr>
-            <tr>
-              <td>Robotic toolkit</td>
-              <td>toolkit</td>
-              <td>800</td>
-              <td>25/05/2024</td>
-              <td>Sadek Rahman</td>
-              <td>Done</td>
-            </tr>
+            {recentSold.length > 0 ? (
+              recentSold.map((order, index) => (
+                <tr key={index}>
+                  <td>{order.items.map(item => item.product?.name || 'N/A').join(', ')}</td>
+                  <td>{order.items.map(item => item.product?.category || 'N/A').join(', ')}</td>
+                  <td>{order.totalAmount}</td>
+                  <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                  <td>{order.user?.name || 'N/A'}</td>
+                  <td>{order.status}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">No recent sold data available</td>
+              </tr>
+            )}
           </tbody>
         </table>
-      </div>
-      <div className="top-categories">
-        <h3>Top Categories</h3>
-        <ul>
-          <li>P1 - 1308</li>
-          <li>P2 - 1019</li>
-          <li>p3- 807</li>
-          <li>p4- 633</li>
-          <li>p5- 418</li>
-          <li>p6 - 312</li>
-        </ul>
       </div>
     </div>
   );

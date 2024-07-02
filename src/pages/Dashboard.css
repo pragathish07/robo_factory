@@ -9,8 +9,8 @@
   width: 250px;
   padding-left: 0%; 
   padding: 0;
-  margin-left: -10px; /* Adjust margin to prevent overflow */
-  transform: translateX(-10px); /* Move sidebar 20px to the left */
+  margin-left: -35px; /* Adjust margin to prevent overflow */
+  
   box-sizing: border-box;
 }
 

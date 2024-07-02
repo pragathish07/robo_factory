@@ -1,7 +1,6 @@
 // Dashboard.js
 import React, { useState } from 'react';
 import Sidebar from '../components/Dashboard/Sidebar';
-import Header from '../components/Dashboard/Header';
 import DashboardHome from '../components/Dashboard/DashboardHome';
 import './Dashboard.css';
 
@@ -15,7 +14,6 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Header />
       <div className="add-product-container">
         <Sidebar />
       <div className="main-content">

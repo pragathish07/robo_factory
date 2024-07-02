@@ -1,0 +1,59 @@
+/* App.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-top: 20px;
+}
+
+p, ul {
+  margin-bottom: 15px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+address {
+  margin-top: 20px;
+  font-style: normal;
+  line-height: 1.4;
+}

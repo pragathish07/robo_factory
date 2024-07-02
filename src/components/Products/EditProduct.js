@@ -1,18 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import './AddProduct.css'; // Use the same CSS as AddProduct to maintain consistent styling
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import './EditProduct.css';
+import { FaSave, FaPlus, FaTrash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../Dashboard/Sidebar';
-import Header from '../Dashboard/Header';
-import { FaSave, FaPlus } from 'react-icons/fa';
 
-const EditProduct = ({ products, onUpdate }) => {
-  const { index } = useParams();
-  const [product, setProduct] = useState(products[index]);
+const EditProduct = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [product, setProduct] = useState({
+    name: '',
+    description: '',
+    features: '',
+    basePrice: '',
+    stock: '',
+    discount: '',
+    discountType: '',
+    category: '',
+    subCategory: '',
+    images: []
+  });
+
+  const [categories, setCategories] = useState([]);
+  const [initialImages, setInitialImages] = useState([]);
+
 
   useEffect(() => {
-    setProduct(products[index]);
-  }, [index, products]);
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/products/${id}`);
+        setProduct(response.data.product);
+        setInitialImages(response.data.product.images);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/products/categories');
+        setCategories(response.data.categories);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchProduct();
+    fetchCategories();
+  }, [id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,30 +56,64 @@ const EditProduct = ({ products, onUpdate }) => {
   };
 
   const handleAddImage = (e) => {
-    const files = e.target.files;
-    const newImages = [];
-    for (let i = 0; i < files.length; i++) {
-      newImages.push(files[i]);
-    }
-    setProduct({ ...product, images: [...product.images, ...newImages] });
+    const files = Array.from(e.target.files);
+    setProduct({ ...product, images: [...product.images, ...files] });
   };
 
-  const handleSaveChanges = () => {
-    onUpdate(index, updatedProduct => ({ ...updatedProduct, ...product }));
-    navigate('/product-list');
+  const handleDeleteImage = (index) => {
+    const updatedImages = product.images.filter((_, imgIndex) => imgIndex !== index);
+    setProduct({ ...product, images: updatedImages });
   };
+
+  const handleEditProduct = async () => {
+    try {
+      // First upload new images
+      const formData = new FormData();
+      product.images.forEach((image) => {
+        if (image instanceof File) {
+          formData.append('images', image);
+        }
+      });
+
+      let imagePaths = initialImages;
+
+      if (formData.has('images')) {
+        const uploadResponse = await axios.post('http://localhost:5000/api/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        if (uploadResponse.data.success) {
+          imagePaths = [...initialImages, ...uploadResponse.data.filePaths];
+        }
+      }
+
+      // Then update the product with image paths
+      const updatedProduct = { ...product, images: imagePaths };
+      const productResponse = await axios.put(`http://localhost:5000/api/products/${id}`, updatedProduct);
+
+      if (productResponse.data.success) {
+        console.log('Product updated successfully:', productResponse.data.product);
+        navigate('/product-list')
+     
+      }
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
+  };
+
   return (
     <div>
-      <Header />
-      <div className="add-product-container">
+      <div className="edit-product-container">
         <Sidebar />
         <div className="main-content">
-          <header className="add-product-header">
+          <header className="edit-product-header">
             <div className="header-left">
               <h1>Edit Product</h1>
             </div>
           </header>
-          <div className="add-product-content">
+          <div className="edit-product-content">
             <div className="info-and-upload">
               <section className="general-info">
                 <h3>General Information</h3>
@@ -54,7 +124,6 @@ const EditProduct = ({ products, onUpdate }) => {
                     name="name"
                     value={product.name}
                     onChange={handleInputChange}
-                    placeholder="Product Name"
                   />
                 </label>
                 <label>
@@ -63,7 +132,6 @@ const EditProduct = ({ products, onUpdate }) => {
                     name="description"
                     value={product.description}
                     onChange={handleInputChange}
-                    placeholder="Product Description"
                   />
                 </label>
                 <label>
@@ -72,28 +140,44 @@ const EditProduct = ({ products, onUpdate }) => {
                     name="features"
                     value={product.features}
                     onChange={handleInputChange}
-                    placeholder="List the key features of the product"
                   />
                 </label>
               </section>
               <section className="upload-img">
                 <h3>Upload Img</h3>
                 <div className="img-preview">
-                  {product.images.length > 0 ? (
-                    product.images.map((img, index) => (
-                      <img key={index} src={URL.createObjectURL(img)} alt={`Product ${index + 1}`} />
+                  {initialImages.length > 0 ? (
+                    initialImages.map((img, index) => (
+                      <div key={index} className="img-container">
+                        <img src={`http://localhost:5000/${img}`} alt={`Product ${index + 1}`} />
+                      </div>
                     ))
                   ) : (
-                    <img src="https://via.placeholder.com/150" alt="Product" />
+                    <img src="https://via.placeholder.com/" alt="Product" />
                   )}
+                  {product.images.length > 0 && product.images.map((img, index) => (
+                    <div key={index} className="img-container">
+                      {img instanceof File ? (
+                        <img src={URL.createObjectURL(img)} alt={`Product ${index + 1}`} />
+                      ) : (
+                        <img src={`http://localhost:5000/${img}`} alt={`Product ${index + 1}`} />
+                      )}
+                      <button className="delete-img-btn" onClick={() => handleDeleteImage(index)}>
+                        <FaTrash />
+                      </button>
+                    </div>
+                  ))}
                 </div>
                 <div className="img-thumbnails">
                   {product.images.map((img, index) => (
-                    <img key={index} src={URL.createObjectURL(img)} alt={`Thumbnail ${index + 1}`} />
+                    img instanceof File ? (
+                      <img key={index} src={URL.createObjectURL(img)} alt={`Thumbnail ${index + 1}`} />
+                    ) : (
+                      <img key={index} src={`http://localhost:5000/${img}`} alt={`Thumbnail ${index + 1}`} />
+                    )
                   ))}
                   <input
                     type="file"
-                    multiple
                     accept="image/*"
                     onChange={handleAddImage}
                     style={{ display: 'none' }}
@@ -115,7 +199,6 @@ const EditProduct = ({ products, onUpdate }) => {
                     name="basePrice"
                     value={product.basePrice}
                     onChange={handleInputChange}
-                    placeholder="Rs.100"
                   />
                 </label>
                 <label>
@@ -125,7 +208,6 @@ const EditProduct = ({ products, onUpdate }) => {
                     name="stock"
                     value={product.stock}
                     onChange={handleInputChange}
-                    placeholder="100"
                   />
                 </label>
                 <label>
@@ -135,7 +217,6 @@ const EditProduct = ({ products, onUpdate }) => {
                     name="discount"
                     value={product.discount}
                     onChange={handleInputChange}
-                    placeholder="10%"
                   />
                 </label>
                 <label>
@@ -159,8 +240,13 @@ const EditProduct = ({ products, onUpdate }) => {
                     name="category"
                     value={product.category}
                     onChange={handleInputChange}
-                    placeholder="Category"
+                    list="categories"
                   />
+                  <datalist id="categories">
+                    {categories.map((category, index) => (
+                      <option key={index} value={category} />
+                    ))}
+                  </datalist>
                 </label>
                 <label>
                   Sub Category
@@ -169,18 +255,15 @@ const EditProduct = ({ products, onUpdate }) => {
                     name="subCategory"
                     value={product.subCategory}
                     onChange={handleInputChange}
-                    placeholder="Sub Category"
                   />
                 </label>
               </section>
             </div>
           </div>
-          <div className="add-product-actions">
-            <button className="save-draft-btn" onClick={() => navigate('/product-list')}>
-              Cancel
-            </button>
-            <button className="add-product-btn" onClick={handleSaveChanges}>
-              <FaSave /> Save Changes
+          <div className="edit-product-actions">
+           
+            <button className="edit-product-btn" onClick={handleEditProduct}>
+              <FaPlus /> Edit Product
             </button>
           </div>
         </div>
@@ -188,4 +271,5 @@ const EditProduct = ({ products, onUpdate }) => {
     </div>
   );
 };
+
 export default EditProduct;

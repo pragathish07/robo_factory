@@ -1,13 +1,25 @@
-/* Sidebar.css */
-
 .sidebar {
   width: 250px;
-  background-color: black;
+  background-color: white;
+  color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0;
-  height: 100vh; /* Set the height to 100% of the viewport height */
+  height: 100vh;
+  margin-top:-17px;
+  position: relative;
+  left: -30px;
+}
+
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #ddd;
 }
 
 body {
@@ -18,66 +30,143 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
+  color: white;
 }
 
 .sidebar-logo img {
   width: 40px;
   height: 40px;
   margin-right: 10px;
-  color: white;
+  color: black;
 }
 
 .sidebar-menu {
+  text-decoration: none;
   list-style-type: none;
   padding: 0;
   width: 100%;
-  color: white;
+  color: black;
 }
 
 .sidebar-menu li {
+  text-decoration: none;
   display: flex;
-  align-items: center;
-  padding: 10px 20px; /* Adjust padding to center the content horizontally */
+  align-items: left;
+  justify-content: left;
+  padding: 15px;
+  margin: 10px 10px;
   cursor: pointer;
-  color: white;
+  font-size: 18px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu li:hover {
+  background-color:#e96c21; 
+  border-color: #1e90ff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-menu li span {
   margin-left: 10px;
-  color: white;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .sidebar-upload {
   margin-top: auto;
   text-align: center;
-  color: #fff;
+  color: #000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .sidebar-upload button {
   margin-top: 10px;
-  padding: 10px 20px;
+  padding: 12px 24px;
   background-color: #e96c21;
   color: white;
   border: none;
   cursor: pointer;
+  font-size: 16px;
 }
-
-/* Responsive styles for smaller screens */
+.sidebar-menu li a:link,
+.sidebar-menu li a:visited,
+.sidebar-menu li a:hover,
+.sidebar-menu li a:active {
+  color: black;
+  text-decoration: none;
+}
 @media screen and (max-width: 768px) {
   .sidebar {
     width: 100%;
-    height: auto; /* Allow the height to adjust based on content */
-  }
-
-  .sidebar-logo {
-    margin-bottom: 20px;
+    height: auto;
+    margin-top: 0;
+    left: 0; /* Reset left property for smaller screens */
   }
 
   .sidebar-menu li {
-    padding: 10px; /* Adjust padding for smaller screens */
+    padding: 12px;
+    font-size: 16px;
   }
 
   .sidebar-upload button {
-    padding: 8px 16px; /* Adjust button padding for smaller screens */
+    padding: 10px 20px;
+    font-size: 14px;
   }
 }
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+    left: 0; /* Reset left property for smaller screens */
+  }
+
+  .sidebar-menu li {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .sidebar-upload button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+    left: 0; /* Reset left property for smaller screens */
+  }
+
+  .sidebar-menu li {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .sidebar-upload button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+    left: 0; /* Reset left property for smaller screens */
+  }
+
+  .sidebar-menu li {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .sidebar-upload button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }}

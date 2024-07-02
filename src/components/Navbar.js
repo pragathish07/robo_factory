@@ -1,19 +1,50 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaMapMarkerAlt, FaHeart, FaUser, FaCaretDown } from 'react-icons/fa';
- // Import useAuth hook
 import './Navbar.css';
 import logo from './Robo Factory.png';
 import { RxCaretDown } from "react-icons/rx";
 import { useAuth } from '../context/AuthContext';
+import { UserContext } from '../context/UserContext';
 
 const Navbar = () => {
-  const { isAuthenticated, logout ,userRole} = useAuth();
-   // Get user information from AuthContext
+  const { isAuthenticated, logout, userRole } = useAuth();
+  const { user } = useContext(UserContext);
 
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
   const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState(null);
+
+  const locationDropdownRef = useRef(null);
+  const categoriesDropdownRef = useRef(null);
+
+ 
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        locationDropdownRef.current &&
+        !locationDropdownRef.current.contains(event.target) &&
+        !event.target.classList.contains('navbar-location')
+      ) {
+        setIsLocationDropdownOpen(false);
+      }
+
+      if (
+        categoriesDropdownRef.current &&
+        !categoriesDropdownRef.current.contains(event.target) &&
+        !event.target.classList.contains('navbar-categories-dropdown')
+      ) {
+        setIsCategoriesDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const toggleLocationDropdown = () => {
     setIsLocationDropdownOpen(!isLocationDropdownOpen);
@@ -32,15 +63,11 @@ const Navbar = () => {
   const categories = [
     { name: "Electronics", path: "/shop/electronics" },
     { name: "Radios", path: "/shop/radios" },
-    { name: "Motor and Gearboxes", path: "/shop/motor-and-gearboxes" },
-    { name: "Battery", path: "/shop/battery" },
-    { name: "Charger and Accessories", path: "/shop/charger-accessories" },
-    { name: "RoboKits", path: "/shop/robokits" },
-    { name: "Tools", path: "/shop/tools" },
-    { name: "Merchandise", path: "/shop/merchandise" },
-    { name: "Wires, Cables and Connections", path: "/shop/wires-cables-connections" },
-    { name: "Mechanical", path: "/shop/mechanical" }
+    { name: "Motors", path: "/shop/motors" },
+    
   ];
+
+  const roles = ["admin", "superadmin"];
 
   return (
     <>
@@ -48,11 +75,11 @@ const Navbar = () => {
         <div className="navbar-left">
           <Link to="/" className="navbar-logo">
             <img src={logo} alt="Company Logo" />
-            <span style={{ color: '#FFFFFF' }}>ROBOFACTORY</span>
+            <span><b>RoboFactory</b></span>
           </Link>
-          <div className="navbar-location" onClick={toggleLocationDropdown}>
-            <FaMapMarkerAlt style={{ color: '#FFFFFF' }} />
-            <span style={{ color: '#FFFFFF' }}>{selectedCity ? selectedCity : "Select your address"}</span>
+          <div className="navbar-location" onClick={toggleLocationDropdown} ref={locationDropdownRef}>
+            <FaMapMarkerAlt />
+            <span>{selectedCity ? selectedCity : "Select your address"}</span>
             {isLocationDropdownOpen && (
               <ul className="city-dropdown">
                 {cities.map(city => (
@@ -63,13 +90,11 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-center">
-          <input type="text" placeholder="Search" style={{ backgroundColor: '#FFFFFF', color: '#232f3e' }} />
+          <input type="text" placeholder="Search" />
         </div>
         <div className="navbar-right">
-          
-          
-          <div className="navbar-categories-dropdown" onClick={toggleCategoriesDropdown}>
-            <span style={{ color: '#FFFFFF' }}>Categories</span>
+          <div className="navbar-categories-dropdown" onClick={toggleCategoriesDropdown} ref={categoriesDropdownRef}>
+            <span>Categories</span>
             <RxCaretDown />
             {isCategoriesDropdownOpen && (
               <ul className="categories-dropdown">
@@ -81,24 +106,15 @@ const Navbar = () => {
               </ul>
             )}
           </div>
-          <Link to='/customerdashboard' className='navbar-link'><FaUser style={{ color: '#FFFFFF' }} /></Link>
-          <Link to="/wishlist" className="navbar-link" style={{ color: '#FFFFFF' }}>
-            <FaHeart style={{ color: '#FFFFFF' }} />
-          </Link> {/* Wishlist link with heart icon */}
-          <Link to="/cart" className="navbar-link" style={{ color: '#FFFFFF' }}>
-            <FaShoppingCart style={{ color: '#FFFFFF' }} />
+          <Link to='/customerdashboard' className='navbar-link'><FaUser /></Link>
+          <Link to="/cart" className="navbar-link">
+            <FaShoppingCart />
             <span>Cart</span>
           </Link>
-
-          {isAuthenticated ? (<button className="btn" onClick={logout}>Logout</button>) : (<Link className='navbar-link' to="/login">Login</Link>)}
-          {userRole === 'admin' && (
-              <>
-                <li><Link to="/dashboard">Dashboard</Link></li>
-
-              </>
-            )}
-
-          
+          {isAuthenticated ? (<a className="navbar-link" style={{ cursor: "pointer" }} onClick={logout}>Logout</a>) : (<Link className='navbar-link' to="/login">Login</Link>)}
+          {roles.includes(userRole) && (
+            <Link to="/dashboard" className='navbar-link'>Dashboard</Link>
+          )}
         </div>
       </nav>
     </>

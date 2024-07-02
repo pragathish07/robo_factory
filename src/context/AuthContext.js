@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
-  const [userRole, setUserRole] = useState('user');
+  const [userRole, setUserRole] = useState();
 
   const login = async (email, password) => {
     try {
@@ -51,6 +51,8 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       setUserRole('guest');
     } */
+
+    
   };
 
   useEffect(() => {

@@ -1,13 +1,39 @@
-/* Navbar.css */
+/* Reset margins and padding for body and html */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+/* Ensure all elements use border-box */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Navbar Styles */
 .navbar {
+
+  width: 100%; /* Full width */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #232f3e; /* Dark blue background */
-  color: white; /* White text color */
+  background-color: white; /* White background */
+  color: #232f3e; /* Dark blue text color */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 1000; /* Ensure the navbar stays on top */
+  transition: padding 0.3s ease;
+}
+
+/* Container for centering content */
+.navbar-container {
+  max-width: 1200px; /* Max width for the content */
+  width: 100%; /* Full width */
+  margin: 0 auto; /* Center the content */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar-left {
@@ -18,8 +44,12 @@
 .navbar-logo {
   display: flex;
   align-items: center;
-  color: white; /* White text color */
+  color: #232f3e; /* Dark blue text color */
   text-decoration: none;
+}
+
+.navbar-logo:hover {
+  color: orange; /* Orange color on hover */
 }
 
 .navbar-logo img {
@@ -33,7 +63,10 @@
   margin-left: 20px;
   cursor: pointer;
   position: relative; /* Ensure position relative for the dropdown */
-  z-index: 10; /* Set higher z-index for the navbar */
+}
+
+.navbar-location:hover {
+  color: orange; /* Orange color on hover */
 }
 
 .navbar-center {
@@ -59,15 +92,25 @@
 }
 
 .navbar-link {
-  color: white; /* White text color */
+  color: #232f3e; /* Dark blue text color */
   text-decoration: none;
   margin-left: 20px;
   display: flex;
   align-items: center;
 }
 
+.navbar-link:hover {
+  color: orange; /* Orange color on hover */
+}
+
+/* Remove underline for all links by default */
+a {
+  text-decoration: none;
+}
+
+/* Navbar categories */
 .navbar-categories {
-  background-color: #37475a; /* Dark blue for categories background */
+  background-color: #f9f9f9; /* Light grey for categories background */
   padding: 10px 20px;
 }
 
@@ -83,15 +126,20 @@
 }
 
 .navbar-categories li a {
-  color: white; /* White text color */
+  color: #232f3e; /* Dark blue text color */
+}
+
+.navbar-categories li a:hover {
+  color: orange; 
   text-decoration: none;
 }
 
+/* City dropdown */
 .city-dropdown {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: whitesmoke;
+  background-color: white; /* White background for dropdown */
   border: 1px solid #ccc;
   border-top: none;
   list-style-type: none;
@@ -115,16 +163,21 @@
   cursor: pointer;
 }
 
+/* Categories dropdown */
 .categories-dropdown {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #ffffff;
-  color: #232f3e;
+  background-color: white; /* White background */
+  color: #232f3e; /* Dark blue text color */
   border: 1px solid #ccc;
   padding: 10px 0;
   z-index: 1000;
   width: 200px;
+}
+
+.categories-dropdown:hover {
+  color: orange;
 }
 
 .categories-dropdown li {
@@ -135,37 +188,15 @@
 
 .categories-dropdown li:hover {
   background-color: #f0f0f0;
+  color: orange;
 }
 
 .categories-dropdown a {
-  color: #357bd2; /* Default color for links */
-  text-decoration: none; /* Remove underline */
+  color: #232f3e; /* Dark blue text color */
 }
 
-.categories-dropdown a:visited {
-  color: #232f3e; /* Color for visited links */
-}
-
-.city-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #ffffff;
-  color: #232f3e;
-  border: 1px solid #ccc;
-  padding: 10px 0;
-  z-index: 1000;
-  width: 200px;
-}
-
-.city-dropdown li {
-  list-style: none;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.city-dropdown li:hover {
-  background-color: #f0f0f0;
+.categories-dropdown a:hover {
+  color: orange; /* Orange color on hover */
 }
 
 /* Responsive adjustments */
@@ -184,6 +215,11 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 10px;
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .navbar-center {
@@ -218,6 +254,10 @@
 }
 
 @media (max-width: 480px) {
+  .navbar {
+    padding: 5px 10px;
+  }
+
   .navbar-logo img {
     height: 30px;
     margin-right: 5px;
@@ -242,13 +282,4 @@
   .navbar-categories li {
     margin-bottom: 5px;
   }
-}
-
-
-.btn{
-  background-color: transparent;
-  color: #ffffff;
-  font-family: inherit;
-  padding: 10px;
-  margin: 10px;
 }

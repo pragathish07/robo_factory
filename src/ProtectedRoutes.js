@@ -1,27 +1,20 @@
 // src/components/ProtectedRoute.js
-import React, { useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext'; // Adjust the import according to your project structure
+import { useLocation } from 'react-router-dom';
 
 
-const ProtectedRoute = ({ children , roles }) => {
-    const { isAuthenticated, checkAuth ,userRole } = useAuth();
-    const location = useLocation();
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();  
 
-    useEffect(() => {
-        checkAuth();
-    }, [checkAuth]);
 
-    if (!isAuthenticated) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
-    }
-    
-    if (userRole !== "admin") {
-        
-        return <Navigate to="/login" state={{ from: location }} replace/>;
-    }
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{from:location}} replace />;
+  }
 
-    return children;
+  return children;
 };
 
 export default ProtectedRoute;

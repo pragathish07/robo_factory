@@ -1,35 +1,48 @@
 import React from 'react';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import './Carousel.css';
-import myImage from './download-compresskaru.com (1).png';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './Carousel.css'; // Import custom CSS for styling
 
-const CustomCarousel = () => {
-  const images = [
-    
-    'https://c8.alamy.com/comp/B8CXC4/fv2102-greg-huszar-bunch-old-radios-piled-up-old-technology-B8CXC4.jpg',
-    myImage,
-    'https://via.placeholder.com/800x400',
-  ];
+const Carousel = ({ images }) => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true, // Adjust slide height based on content
+    autoplay: true, // Enable autoplay
+    autoplaySpeed: 3000, // Set autoplay speed in milliseconds (e.g., 3 seconds)
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  };
 
   return (
-    <Carousel
-      showThumbs={false}
-      showStatus={false}
-      infiniteLoop
-      useKeyboardArrows
-      autoPlay
-      interval={3000}
-      dynamicHeight
-    >
-      {images.map((image, index) => (
-        <div key={index} className="carousel-item">
-          <img src={image} alt={`Slide ${index + 1}`} className="carousel-image" />
-          <div className="legend">Slide {index + 1}</div>
-        </div>
-      ))}
-    </Carousel>
+    <div className="carousel-wrapper">
+      <Slider {...settings}>
+        {images.map((image, index) => (
+          <div key={index}>
+            <img src={image.url} alt={image.alt} className="carousel-image" />
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 };
 
-export default CustomCarousel;
+export default Carousel;

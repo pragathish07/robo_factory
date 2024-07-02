@@ -1,48 +1,64 @@
 import React from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import './Footer.css';
+import './Footer.css'; // Make sure to create a CSS file for styling
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faYoutube, faInstagram, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+
+import { faPhoneAlt, faEnvelope, faMapMarker } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer-top">
-        <div className="footer-column">
-          <h3>Get to Know Us</h3>
-          <Link to="/about">About Us</Link>
-          <Link to="/contact">Contact Us</Link>
-          <Link to="/customer-support">Customer Support</Link>
-
-
+      
+      <div className="footer-main">
+        <div className="footer-section">
+          <h4>ROBOFACTORY</h4>
+          <div className="footer-social">
+        <a href="#"><FontAwesomeIcon icon={faYoutube} /></a>
+        <a href="#"><FontAwesomeIcon icon={faInstagram} /></a>
+        <a href="#"><FontAwesomeIcon icon={faLinkedin} /></a>
+        <a href="#"><FontAwesomeIcon icon={faTwitter} /></a>
+      </div>
         </div>
-        <div className="footer-column">
-          <h3>Connect with Us</h3>
-          <Link to="https://www.facebook.com/"><FaFacebook /> Facebook</Link>
-          <Link to="https://www.instagram.com/"><FaInstagram /> Instagram</Link>
-          <Link to="https://www.linkedin.com/"><FaLinkedin /> LinkedIn</Link>
-          <Link to="https://www.twitter.com/"><FaTwitter /> Twitter</Link>
+        <div className="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about">About</a></li>
+            {/* <li><a href="#">Features</a></li>
+            <li><a href="#">Works</a></li> */}
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
         </div>
-        <div className="footer-column">
-          <h3>Contact Info</h3>
-          <Link to="tel:+917200061904"><FaPhone /> +91 72000 61904</Link>
-          <Link to="mailto:info@ROBOFACTORY.com"><FaEnvelope /> info@ROBOFACTORY.com</Link>
-          <div className="footer-address">
-            <FaMapMarkerAlt />
-            <div>
-              Second Floor, Platinum Jubilee building, AC Tech Campus,
+        <div className="footer-section">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="/customer-support">Customer Support</a></li>
+            {/* <li><a href="#">Delivery Details</a></li> */}
+            <li><a href="/terms-of-service">Terms of Service</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/returns-and-refunds">Returns & Refunds</a></li>
+
+          </ul>
+        </div>
+    
+        <div className="footer-section">
+          <h4>Contact Info</h4>
+          <ul>
+          <li><a href="#"><FontAwesomeIcon icon={faPhoneAlt} /> +91 72000 61904</a></li>
+          <li><a href="#"><FontAwesomeIcon icon={faEnvelope} /> info@robofactory.com</a></li>
+          <li>
+            <a href="#"><FontAwesomeIcon icon={faMapMarker} /> Binary Autobots Private Limited,
               <br />
-              Anna University, Guindy, Chennai, Tamil Nadu 600025
-            </div>
-          </div>
+              10-5-111, Gandhi Bazaar, Surandai, Tirunelveli-627859
+            </a>
+          </li>
+        </ul>
         </div>
       </div>
       <div className="footer-bottom">
-        <div className="footer-credit">
-          &copy; 2024 ROBOFACTORY. All Rights Reserved.
-        </div>
+        <p>All Rights Reserved @RoboFactory</p>
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

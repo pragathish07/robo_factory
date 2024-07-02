@@ -1,23 +1,23 @@
 // Sidebar.js
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaHome, FaStore,FaCog , FaMoneyBillWave, FaHeadset, FaFileAlt, FaUser, FaUpload } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
+import { Link, useNavigate } from 'react-router-dom'; 
 import './Sidebar.css';
-//import AddProduct from '../Products/AddProduct';
-
+import { UserContext } from '../../context/UserContext';
 
 const Sidebar = () => {
   const [ setShowAddProduct] = useState(false);
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate(); 
+  const { user } = useContext(UserContext);
+  
 
   const handleUploadClick = () => {
-    // Set showAddProduct to true to conditionally render AddProduct
+    
     setShowAddProduct(true);
   };
 
-  // Function to navigate to AddProduct page
+  
   const navigateToAddProduct = () => {
-    // Use navigate function to navigate to '/add-product' route
     navigate('/add-product');
   };
 
@@ -25,15 +25,23 @@ const Sidebar = () => {
     <div className="sidebar">
       <ul className="sidebar-menu">
         <li>
-        <Link to="/">
-          <FaHome />
+        
+        <Link to="/dashboard">
+        <FaHome />
           <span>Overview</span>
           </Link>
         </li>
         <li>
-          <FaCog/>
+          
           <Link to="/add-product">
+          <FaCog/>
           <span>Add Product</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/product-categories">
+          <FaStore />
+          <span>Categories</span>
           </Link>
         </li>
         <li>
@@ -48,6 +56,13 @@ const Sidebar = () => {
             <span>Orders</span>
           </Link>
         </li>
+
+       {user && user.role == "superadmin" ? <li>
+          <Link to="/admin/add-admin"> {/* Use Link to navigate to '/orders' */}
+            <FaMoneyBillWave />
+            <span>Add Admin</span>
+          </Link>
+        </li> : null}
         <li>
           <FaHeadset />
           <span>Support</span>

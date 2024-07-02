@@ -7,16 +7,16 @@ import Loader from "react-js-loader";
 const Radio = () => {
   const [products, setProducts] = useState([]);
   const [sortingOption, setSortingOption] = useState('default');
-  const [filteringOption, setFilteringOption] = useState('radio');
+  const [filteringOption, setFilteringOption] = useState('Radio');
   const [loading ,setLoading] = useState(true);
-
+  const [subcategoryFilter, setSubcategoryFilter] = useState('');
   useEffect(() => {
     fetchProducts();
-  }, [filteringOption]);
+  }, [filteringOption , subcategoryFilter]);
 
   const fetchProducts = () => {
     axios
-      .get(`http://localhost:5000/api/products/${filteringOption}`)
+      .get(`http://localhost:5000/api/products/category/${filteringOption}`)
       .then((response) => {
         setProducts(response.data.products);
         setLoading(false);
@@ -51,6 +51,11 @@ const Radio = () => {
     }
   });
 
+  const handleSubcategoryFilterChange = (e) => {
+    setSubcategoryFilter(e.target.value);
+  };
+
+
   return (
     <div className="Radio">
       <h2>Radio</h2>
@@ -77,6 +82,18 @@ const Radio = () => {
             <option value="all">All</option>
             <option value="Radio">Radio</option>
             {/* Add more filtering options as needed */}
+          </select>
+        </div>
+        <div className="subcategory-filter">
+          <label htmlFor="subcategoryFilter">Subcategory:</label>
+          <select
+            id="subcategoryFilter"
+            onChange={handleSubcategoryFilterChange}
+            value={subcategoryFilter} 
+          >
+            <option value="">All</option>
+            <option value="5kg">5kg</option>
+            <option value="10kg">10kg</option>
           </select>
         </div>
       </div>

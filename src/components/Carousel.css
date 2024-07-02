@@ -1,71 +1,24 @@
-.carousel {
-  max-height: calc(70vh - 200px); /* Adjust the value as needed */
-  overflow: hidden;
+.App {
+  max-width: 800px; /* Example fixed width for the carousel */
+  margin: 0 auto;
+  max-height: 655px;
+  height: 655px;
 }
 
-.carousel .carousel-item {
-  position: relative;
+.slick-slide img {
+  display: grid;
+  margin: 0 auto;
+  max-height: 670px;
 }
 
-.carousel .carousel-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the image covers the entire carousel without distorting */
+.carousel-wrapper {
+  max-width: 100%; /* Ensure the carousel wrapper adjusts to its parent's width */
+  margin: 0 auto;
 }
 
-.carousel .legend {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 8px 16px;
-  font-size: 18px;
-  border-radius: 4px;
-}
-
-/* Media Queries for responsiveness */
-@media (max-width: 1200px) {
-  .carousel {
-    max-height: calc(65vh - 150px);
-  }
-
-  .carousel .legend {
-    font-size: 16px;
-    padding: 6px 12px;
-  }
-}
-
-@media (max-width: 992px) {
-  .carousel {
-    max-height: calc(60vh - 150px);
-  }
-
-  .carousel .legend {
-    font-size: 14px;
-    padding: 6px 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .carousel {
-    max-height: calc(55vh - 100px);
-  }
-
-  .carousel .legend {
-    font-size: 12px;
-    padding: 5px 8px;
-  }
-}
-
-@media (max-width: 576px) {
-  .carousel {
-    max-height: calc(50vh - 80px);
-  }
-
-  .carousel .legend {
-    font-size: 10px;
-    padding: 4px 6px;
-  }
+.carousel-image {
+  width: 100%; /* Ensure images fill the available space */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Prevent any potential alignment issues */
+  max-width: 100%; /* Ensure images do not exceed their natural size */
 }

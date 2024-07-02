@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const auth = require('./middleware.auth');
 const router = express.Router();
+const dotenv = require('dotenv');
 
 
 /* const authenticateToken = (req, res, next) => {
@@ -23,7 +25,7 @@ const router = express.Router();
 }; */
 // Signup route
 router.post('/signup', async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -32,6 +34,7 @@ router.post('/signup', async (req, res) => {
     }
 
     user = new User({
+      name,
       email,
       password,
     });
@@ -47,7 +50,7 @@ router.post('/signup', async (req, res) => {
       },
     };
 
-    jwt.sign(payload, 'secret', { expiresIn: '1h' }, (err, token) => {
+    jwt.sign(payload, 'secret', (err, token) => {
       if (err) throw err;
       res.json({ token });
     });
@@ -71,12 +74,11 @@ router.post('/login', async (req, res) => {
   if (!isMatch) {
       return res.status(400).send('Invalid credentials');
   }
-
-  const token = jwt.sign({ id: user._id }, 'secret', {
-      expiresIn: '1h',
-  });
+  
+  const token = jwt.sign({ id: user._id }, 'secret');
 
   res.json({ token , role: user.role });
+  
   
 });
 

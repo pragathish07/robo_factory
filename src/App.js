@@ -7,12 +7,11 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import AddToCart from './pages/AddToCart';
 import Wishlist from './pages/Wishlist';
 import OrdersAndReturns from './pages/OrdersAndReturns';
 import Electronics from './pages/Electronics';
 import Radios from './pages/Radios';
-import MotorsAndGearboxes from './pages/MotorsAndGearboxes';
+import Motors from './pages/Motors';
 import Battery from './pages/Battery';
 import ChargerAndAccessories from './pages/ChargerAndAccessories';
 import RoboKits from './pages/RoboKits';
@@ -27,217 +26,299 @@ import Dashboard from './pages/Dashboard';
 import AddProduct from './components/Products/AddProduct';
 import ProductList from './components/Products/ProductList';
 import Orders from './components/Orders/Orders';
-import EditProduct from './components/Products/EditProduct'; 
+import EditProduct from './components/Products/EditProduct';
 import { AuthProvider } from "./context/AuthContext"
 import ProtectedRoute from './ProtectedRoutes';
 import AdminRoute from './AdminRoute';
+import ProductDetail from './pages/ProductDetail';
+import AddToCart from './pages/Cart';
+import { UserContext, UserProvider } from './context/UserContext';
+import { CartProvider } from './context/CartContext';
+import OrderConfirmation from './pages/OrderConfirmation';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import ReturnsAndRefunds from './pages/ReturnsAndRefunds';
+import TermsAndConditions from './pages/TermsOfService';
+import AddAdmin from './pages/AddAdmin';
+import CategoriesPage from './components/Products/AdminCategories';
+import ProductGrid from './components/Products/ProductGrid';
+import ReturnConfirmation from './pages/returnConfirmation';
 
 const App = () => {
-  const [products, setProducts] = useState([]);
 
-  const handleAddProduct = (productData) => {
-    setProducts([...products, productData]);
-  };
 
-  const handleUpdateProduct = (index, updatedProduct) => {
-    const updatedProducts = products.map((product, idx) =>
-      idx === index ? updatedProduct : product
-    );
-    setProducts(updatedProducts);
-  };
 
-  const handleDeleteProduct = (index) => {
-    setProducts(products.filter((_, idx) => idx !== index));
-  };
   return (
-   
-
 
     <AuthProvider>
-    <Router>
-      <div id="root">
-        <Navbar />
-        <div className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/customer-support" element={<CustomerSupport />} />
+      <UserProvider>
+        <CartProvider>
 
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute roles={['admin']}>
-                  <Dashboard />
-                </ProtectedRoute>
-              } 
-            />
-            
-            <Route 
-              path="/shop/electronics" 
-              element={
-                <ProtectedRoute>
-                  <Electronics />
-                </ProtectedRoute>
-              } 
-            />
+          <Router>
+            <div id="root">
+              <Navbar />
+              <div className="main-content">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/customer-support" element={<CustomerSupport />} />
 
-            <Route 
-              path="/shop/radios" 
-              element={
-                <ProtectedRoute>
-                  <Radios />
-                </ProtectedRoute>
-              } 
-            />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <AdminRoute>
+                        <Dashboard />
+                      </AdminRoute>
+                    }
+                  />
+                  <Route
+                    path='/admin/add-admin'
+                    element={
+                      <AdminRoute>
+                        <AddAdmin />
+                      </AdminRoute>
+                    }
+                  />
 
-            <Route 
-              path="/shop/motor-and-gearboxes" 
-              element={
-                <ProtectedRoute>
-                  <MotorsAndGearboxes />
-                </ProtectedRoute>
-              } 
-            />
+                  <Route
+                    path="/shop/electronics"
+                    element={
 
-            <Route 
-              path="/shop/battery" 
-              element={
-                <ProtectedRoute>
-                  <Battery />
-                </ProtectedRoute>
-              } 
-            />
+                      <Electronics />
 
-            <Route 
-              path="/shop/charger-accessories" 
-              element={
-                <ProtectedRoute>
-                  <ChargerAndAccessories />
-                </ProtectedRoute>
-              } 
-            />
+                    }
+                  />
+                  <Route
+                    path="/product/:id"
+                    element={
+                      <ProtectedRoute>
+                        <ProductDetail />
+                      </ProtectedRoute>
+                    }
+                  />
 
-            <Route 
-              path="/shop/robokits" 
-              element={
-                <ProtectedRoute>
-                  <RoboKits />
-                </ProtectedRoute>
-              } 
-            />
+                  <Route
+                    path="/shop/radios"
+                    element={
 
-            <Route 
-              path="/shop/tools" 
-              element={
-                <ProtectedRoute>
-                  <Tools />
-                </ProtectedRoute>
-              } 
-            />
+                      <Radios />
 
-            <Route 
-              path="/shop/merchandise" 
-              element={
-                <ProtectedRoute>
-                  <Merchandise />
-                </ProtectedRoute>
-              } 
-            />
+                    }
+                  />
 
-            <Route 
-              path="/shop/wires-cables-connections" 
-              element={
-                <ProtectedRoute>
-                  <WiresCablesConnections />
-                </ProtectedRoute>
-              } 
-            />
+                  <Route
+                    path="/shop/motors"
+                    element={
 
-            <Route 
-              path="/shop/mechanical" 
-              element={
-                <ProtectedRoute>
-                  <Mechanical />
-                </ProtectedRoute>
-              } 
-            />
+                      <Motors />
 
-            <Route 
-              path="/add-product" 
-              element={
-                <ProtectedRoute>
-                  <AddProduct onSubmit={handleAddProduct} />
-                </ProtectedRoute>
-              } 
-            />
+                    }
+                  />
 
-            <Route 
-              path="/product-list" 
-              element={
-                <ProtectedRoute>
-                  <ProductList products={products} onDelete={handleDeleteProduct} />
-                </ProtectedRoute>
-              } 
-            />
+                  <Route
+                    path="/shop/battery"
+                    element={
 
-            <Route 
-              path="/orders" 
-              element={
-                <ProtectedRoute>
-                  <Orders />
-                </ProtectedRoute>
-              } 
-            />
+                      <Battery />
 
-            <Route 
-              path="/edit-product/:index" 
-              element={
-                <ProtectedRoute>
-                  <EditProduct products={products} onUpdate={handleUpdateProduct} />
-                </ProtectedRoute>
-              } 
-            />
+                    }
+                  />
 
-            <Route path="/cart" 
-                  element={
-                    <ProtectedRoute>
-                      <AddToCart />
-                    </ProtectedRoute>
-              } />
+                  <Route
+                    path="/shop/charger-accessories"
+                    element={
 
-            <Route path="/wishlist" 
-                   element={
-                    <ProtectedRoute>
-                      <Wishlist />
-                    </ProtectedRoute>
-              } />
-            <Route path="pages/orders"
-                   element={
-                    <ProtectedRoute>
-                      <OrdersAndReturns />
-                    </ProtectedRoute>
-                   
-                   } />
-            <Route path="/customerdashboard"
-                   element={
-                    <ProtectedRoute>
-                      <CustomerDashboard />
-                    </ProtectedRoute>
+                      <ChargerAndAccessories />
+
+                    }
+                  />
+
+                  <Route
+                    path="/shop/robokits"
+                    element={
+
+                      <RoboKits />
+
+                    }
+                  />
+
+                  <Route
+                    path="/shop/tools"
+                    element={
+
+                      <Tools />
+
+                    }
+                  />
+
+                  <Route
+                    path="/shop/merchandise"
+                    element={
+
+                      <Merchandise />
+
+                    }
+                  />
+
+                  <Route
+                    path="/shop/wires-cables-connections"
+                    element={
+
+                      <WiresCablesConnections />
+
+                    }
+                  />
+
+                  <Route
+                    path="/shop/mechanical"
+                    element={
+
+                      <Mechanical />
+
+                    }
+                  />
+                  <Route
+                    path='/return'
+                    element={
+                      <ProtectedRoute>
+                        <ReturnConfirmation/>
+                      </ProtectedRoute>
+                    }
+                  />
                   
-                   } />
-            
+                  <Route
+                    path='/privacy-policy'
+                    element={
+                      <ProtectedRoute>
+                        <PrivacyPolicy />
+                      </ProtectedRoute>
+                    }
+                  />
 
-            {/* Add more routes */}
-          </Routes>
-        </div>
-        <Footer />
-      </div>
-    </Router>
-  </AuthProvider>
-    
+                  <Route
+                    path='terms-of-service'
+                    element={
+                      <ProtectedRoute>
+                        <TermsAndConditions />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path='/returns-and-refunds'
+                    element={
+                      <ProtectedRoute>
+                        <ReturnsAndRefunds />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/add-product"
+                    element={
+                      <ProtectedRoute>
+                        <AddProduct />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/product-categories"
+                    element={
+                      <ProtectedRoute>
+                        <CategoriesPage />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/product-list"
+                    element={
+                      <ProtectedRoute>
+                        <ProductList />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/products/:id"
+                    element={
+                      <ProtectedRoute>
+                        <ProductGrid />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/orders"
+                    element={
+                      <ProtectedRoute>
+                        <Orders />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path='/order-confirmation'
+                    element={
+                      <ProtectedRoute>
+                        <OrderConfirmation />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/edit-product/:id"
+                    element={
+                      <ProtectedRoute>
+                        <EditProduct />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  <Route path="/cart"
+                    element={
+                      <ProtectedRoute>
+                        <AddToCart />
+                      </ProtectedRoute>
+                    } />
+
+                  <Route path="/wishlist"
+                    element={
+                      <ProtectedRoute>
+                        <Wishlist />
+                      </ProtectedRoute>
+                    } />
+                  <Route path="pages/orders"
+                    element={
+                      <ProtectedRoute>
+                        <OrdersAndReturns />
+                      </ProtectedRoute>
+
+                    } />
+                  <Route path="/customerdashboard"
+                    element={
+                      <ProtectedRoute>
+                        <CustomerDashboard />
+                      </ProtectedRoute>
+
+                    } />
+
+
+                  {/* Add more routes */}
+                </Routes>
+              </div>
+              <Footer />
+            </div>
+          </Router>
+        </CartProvider>
+      </UserProvider>
+
+    </AuthProvider>
+
+
   );
 };
 

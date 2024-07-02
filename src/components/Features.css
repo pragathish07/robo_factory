@@ -1,9 +1,8 @@
 .features {
-  padding: 40px 20px;
-  background-color: #f8f8f8;
+  padding: 50px 20px;
+  background-color: #fff;
   text-align: center;
-  opacity: 0; /* Initially set opacity to 0 */
-  transition: opacity 0.3s ease; /* Apply transition to opacity */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .features:hover {
@@ -12,7 +11,7 @@
 
 .features h2 {
   font-size: 28px;
-  color: #27214f;
+  color:  #232f3e;
   margin-bottom: 20px;
 }
 
@@ -25,7 +24,7 @@
 
 .feature-card {
   background: white;
-  border: 1px solid #ccc;
+  border: 1px solid #ff9900;
   border-radius: 8px;
   padding: 20px;
   width: 220px;
@@ -35,6 +34,7 @@
 
 .feature-card:hover {
   transform: translateY(-5px);
+  border-color: coral; /* Orange border */
 }
 
 .feature-icon {

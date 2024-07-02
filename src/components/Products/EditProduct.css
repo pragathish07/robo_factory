@@ -1,0 +1,184 @@
+.edit-product-container {
+    display: flex;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .edit-product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .edit-product-header h1 {
+    font-size: 24px;
+  }
+  
+  .edit-product-content {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .info-and-upload,
+  .price-and-category {
+    flex: 1;
+    min-width: 300px; /* Adjust minimum width as needed */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .general-info,
+  .upload-img,
+  .pricing-stock,
+  .category {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .general-info h3,
+  .upload-img h3,
+  .pricing-stock h3,
+  .category h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .general-info label,
+  .upload-img label,
+  .pricing-stock label,
+  .category label {
+    display: block;
+    margin-bottom: 15px;
+  }
+  
+  .general-info input,
+  .upload-img input,
+  .general-info textarea,
+  .upload-img textarea,
+  .pricing-stock input,
+  .category input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .general-info textarea,
+  .upload-img textarea,
+  .pricing-stock textarea,
+  .category textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  .upload-img .img-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .upload-img .img-container {
+    position: relative;
+  }
+  
+  .upload-img .img-container img {
+    max-width: 100px;
+    border-radius: 8px;
+  }
+  
+  .upload-img .delete-img-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .upload-img input[type="file"] {
+    display: none;
+  }
+  
+  .upload-img .add-img-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .price-and-category {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .pricing-stock,
+  .category {
+    flex: 1;
+  }
+  
+  .pricing-stock h3,
+  .category h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .pricing-stock label,
+  .category label {
+    display: block;
+    margin-bottom: 15px;
+  }
+  
+  .pricing-stock input,
+  .category input,
+  .pricing-stock select,
+  .category select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .pricing-stock select,
+  .category select {
+    width: 100%;
+  }
+  
+  .edit-product-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .save-product-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .save-product-btn svg {
+    margin-right: 5px;
+  }
+  
+  .save-product-btn:hover {
+    opacity: 0.9;
+  }

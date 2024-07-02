@@ -1,15 +1,17 @@
 /* Container for the shop section */
 .shop {
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: 60px 40px;
+  background-color: hsl(0, 0%, 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Title of the shop section */
 .shop h1 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #27214f;
-  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 32px;
+  font-weight: 600;
 }
 
 /* Container for the categories */
@@ -23,14 +25,15 @@
 /* Style for each category card */
 .category-card {
   width: 200px;
-  height: 250px;
-  border-radius: 8px;
+  height: 260px;
+  border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s;
   opacity: 0;
   animation: fadeIn 1s forwards;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .category-card:nth-child(odd) {
@@ -43,7 +46,7 @@
 
 .category-card:hover {
   transform: scale(1.05) translateY(-10px);
-  opacity: 1;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Content of the card */
@@ -53,46 +56,25 @@
   background-size: cover;
   background-position: center;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 15px;
+  box-sizing: border-box;
+  background-size: cover;
+  border-radius: 12px;
 }
 
-/* Overlay effect */
-.overlay {
-  width: 100%;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  text-align: center;
+/* Category name styling */
+.card-content h2 {
+  margin: 0;
+  font-size: 22px;
+  color: black;
+  font-weight: 500;
 }
 
 /* Animations */
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
+@keyframes slideInFromRight { 0% { transform: translateX(100%); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
 
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
+@keyframes slideInFromLeft { 0% { transform: translateX(-100%); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }

@@ -4,9 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Signup.css'; // Import your signup styles here
 
-const signup = async (email, password) => {
+const signup = async (name,email, password) => {
   try {
     const response = await axios.post('http://localhost:5000/api/signup', {
+      name,
       email,
       password,
     });
@@ -27,6 +28,7 @@ const signup = async (email, password) => {
 };
 
 const Signup = () => {
+  const [name , setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -46,8 +48,8 @@ const Signup = () => {
     setError(null);
 
     try {
-      const data = await signup(email, password);
-      console.log('Signup successful:', data);
+      const data = await signup(name,email, password);
+      
       // Redirect to login page or dashboard on successful signup
       navigate('/login');
     } catch (err) {
@@ -62,6 +64,13 @@ const Signup = () => {
       <h2>Sign Up</h2>
       {error && <div className="signup-error">{error}</div>}
       <form onSubmit={handleSubmit}>
+      <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
         <input
           type="email"
           placeholder="Email"
@@ -69,6 +78,7 @@ const Signup = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+         
         <input
           type="password"
           placeholder="Password"

@@ -1,96 +1,63 @@
-/* ProductList.css */
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
-.product-list-container .sidebar {
-  margin-right: 10px; /* Move sidebar 10px to the right */
-  transform: translateX(10px); /* Move sidebar 10px to the right */
-  box-sizing: border-box;
-  height: 700px;
-}
-/* Default styles */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* Responsive styles for smaller screens */
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
-}
-
-/* Responsive styles for larger screens */
-@media screen and (min-width: 1200px) {
-  .container {
-    padding: 40px;
-  }
-}
-
 .product-list-container {
   display: flex;
 }
 
+.sidebar {
+  width: 20%;
+  min-width: 250px;
+}
+
 .product-list-content {
-  flex: 1;
+  width: 80%;
   padding: 20px;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 8px;
+  width: 200px;
+}
+
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .product-card {
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 16px;
-  background: #fff;
-  width: 250px; /* Fixed width */
-  height: 350px; /* Fixed height */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 520px;
+
 }
 
 .product-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
-.product-card-actions .action-icon {
+.product-card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-icon {
   cursor: pointer;
-  margin-left: 8px;
 }
 
 .product-image img {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  height: 200px;
   border-radius: 8px;
-}
-
-.product-card h3 {
-  margin: 0;
-  font-size: 1.2em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.product-card p {
-  margin: 4px 0;
-}
-
-.product-card p.description {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limit to 2 lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }

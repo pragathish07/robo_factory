@@ -16,7 +16,7 @@ const ChargerAndAccessories = () => {
 
   const fetchProducts = () => {
     axios
-      .get(`http://localhost:5000/api/products/${filteringOption}`)
+      .get(`http://localhost:5000/api/products/category/${filteringOption}`)
       .then((response) => {
         setProducts(response.data.products);
         console.log("fetched");

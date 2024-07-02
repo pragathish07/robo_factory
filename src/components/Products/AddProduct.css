@@ -1,10 +1,12 @@
+/* Default styles */
 .add-product-container {
   display: flex;
 }
-body{
+
+body {
   font-family: 'Roboto', sans-serif;
 }
-/* Default styles */
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -17,12 +19,38 @@ body{
   .container {
     padding: 10px;
   }
-}
 
-/* Responsive styles for larger screens */
-@media screen and (min-width: 1200px) {
-  .container {
-    padding: 40px;
+  .main-content {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .add-product-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info-and-upload,
+  .price-and-category {
+    padding: 10px;
+  }
+
+  .img-thumbnails {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .img-thumbnails img {
+    width: 80px;
+    height: 80px;
+  }
+
+  input[type="text"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
   }
 }
 
@@ -70,21 +98,7 @@ body{
   background-color: rgba(0, 0, 0, 0.05); 
 }
 
-/* General Info Section */
-.general-info h3 {
-  margin-top: 0;
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-}
-
-/* Upload Img Section */
-.upload-img {
-  border-radius: 5px;
-  padding: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
-  background-color: rgba(0, 0, 0, 0.05); /* Add black tint */
-}
-
+.general-info h3,
 .upload-img h3 {
   margin-top: 0;
   font-weight: bold;
